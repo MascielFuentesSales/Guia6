@@ -1,0 +1,74 @@
+/* Estilos básicos de CSS */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+h2 {
+    text-align: center;
+    color: #333;
+}
+form {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-top: 10px;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: inherit;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    border-color: #fdc9ff;
+    outline: none;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #fdc9ff;
+    border: none;
+    border-radius: 5px;
+    color: #5e245e;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
+}
+button:hover {
+    background-color: #9b00b3;
+}
+.error-message {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}

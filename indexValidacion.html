@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Validación</title>
+    <link rel="stylesheet" href="RecursosGuia6/css/styleValidacion.css">
+</head>
+<body>
+    <form id="studentForm">
+        <h2>Formulario de Validación</h2>
+        
+        <label for="carnet">Carnet:</label>
+        <input type="text" id="carnet" placeholder="El carnet debe contener dos letras y tres numeros" required>
+        <div class="error-message" id="carnetError"></div>
+
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" placeholder="Escribe tu nombre completo" required>
+        <div class="error-message" id="nombreError"></div>
+
+        <label for="dui">DUI:</label>
+        <input type="text" id="dui" placeholder="Escribe tu dui tal que así, 12345678-9" oninput="formatearDUI()" maxlength="10" required>
+        <div class="error-message" id="duiError"></div>
+
+        <label for="nit">NIT:</label>
+        <input type="text" id="nit" placeholder="Escribe tu dui tal que así, 1234-567890-123-4" oninput="formatearNIT()" maxlength="17" required>
+        <div class="error-message" id="nitError"></div>
+
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" placeholder="DD/MM/AAAA" required>
+        <div class="error-message" id="fechaError"></div>
+
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" placeholder="correo@dominio.com" required>
+        <div class="error-message" id="correoError"></div>
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" placeholder="Ingresa tu edad" required>
+        <div class="error-message" id="edadError"></div>
+
+        <button type="button" onclick="validarFormulario()">Validar Información</button>
+    </form>
+
+    <script>
+        function formatearDUI() {
+            const dui = document.getElementById("dui");
+            let valor = dui.value.replace(/\D/g, ''); // Elimina cualquier carácter que no sea número
+            if (valor.length > 8) {
+                valor = valor.slice(0, 8) + '-' + valor.slice(8);
+            }
+            dui.value = valor;
+        }
+
+        function formatearNIT() {
+            const nit = document.getElementById("nit");
+            let valor = nit.value.replace(/\D/g, ''); // Elimina cualquier carácter que no sea número
+            if (valor.length > 4) {
+                valor = valor.slice(0, 4) + '-' + valor.slice(4);
+            }
+            if (valor.length > 11) {
+                valor = valor.slice(0, 11) + '-' + valor.slice(11);
+            }
+            if (valor.length > 15) {
+                valor = valor.slice(0, 15) + '-' + valor.slice(15);
+            }
+            nit.value = valor;
+        }
+
+        function validarFormulario() {
+            const regexCarnet = /^[A-Z]{2}[0-9]{3}$/;
+            const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+            const regexDUI = /^\d{8}-\d{1}$/;
+            const regexNIT = /^\d{4}-\d{6}-\d{3}-\d{1}$/;
+            const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const regexEdad = /^\d+$/;
+
+            const carnet = document.getElementById("carnet").value;
+            const nombre = document.getElementById("nombre").value;
+            const dui = document.getElementById("dui").value;
+            const nit = document.getElementById("nit").value;
+            const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+            const correo = document.getElementById("correo").value;
+            const edad = document.getElementById("edad").value;
+
+            document.getElementById("carnetError").textContent = "";
+            document.getElementById("nombreError").textContent = "";
+            document.getElementById("duiError").textContent = "";
+            document.getElementById("nitError").textContent = "";
+            document.getElementById("fechaError").textContent = "";
+            document.getElementById("correoError").textContent = "";
+            document.getElementById("edadError").textContent = "";
+
+            let isValid = true;
+            if (!regexCarnet.test(carnet)) {
+                document.getElementById("carnetError").textContent = "El carnet debe tener dos letras y tres números tal que así AB123.";
+                isValid = false;
+            }
+            if (!regexNombre.test(nombre)) {
+                document.getElementById("nombreError").textContent = "El nombre solo debe contener letras y espacios.";
+                isValid = false;
+            }
+            if (!regexDUI.test(dui)) {
+                document.getElementById("duiError").textContent = "Forma incorrecto. Ingresa el DUI en tal que así 12345678-9.";
+                isValid = false;
+            }
+            if (!regexNIT.test(nit)) {
+                document.getElementById("nitError").textContent = "Formato incorrecto. Ingresa el DUI en tal que así 1234-567890-123-4.";
+                isValid = false;
+            }
+            if (!fechaNacimiento) {
+                document.getElementById("fechaError").textContent = "Selecciona tu fecha de nacimiento.";
+                isValid = false;
+            }
+            if (!regexCorreo.test(correo)) {
+                document.getElementById("correoError").textContent = "Por favor, introduce un correo válido tal que así correo@dominio.com).";
+                isValid = false;
+            }
+            if (!regexEdad.test(edad) || parseInt(edad) < 1) {
+                document.getElementById("edadError").textContent = "Ingresa una edad válida.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("¡Perfecto! La información ingresada es correcta.");
+            }
+        }
+    </script>
+</body>
+</html>
